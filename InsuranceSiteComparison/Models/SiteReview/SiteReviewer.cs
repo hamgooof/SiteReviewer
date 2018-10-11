@@ -33,7 +33,7 @@ namespace InsuranceSiteComparison.Models.SiteReview
 
             //Analyze the HTML for keywords and accessibility features.
             var keywords = KeywordAnalyzer.AnalyzeKeywords(mainPage.Content);
-            var accessibility= AccessibilityAnalyzer.AnalyzeAccessibility(mainPage.Content);
+            var accessibility = AccessibilityAnalyzer.AnalyzeAccessibility(mainPage.Content);
 
             return new SiteReview()
             {
@@ -41,8 +41,9 @@ namespace InsuranceSiteComparison.Models.SiteReview
                 AccessibilityResult = accessibility,
                 KeywordResult = keywords,
                 TimeToLoad = mainPage.TimeToDownload,
+                HtmlContent = mainPage.Content
             };
         }
-       
+
     }
 }

@@ -26,5 +26,9 @@ namespace InsuranceSiteComparison.Models.SiteReview
         /// Keyword frequency result
         /// </summary>
         public List<string> KeywordResult { get; set; }
+        /// <summary>
+        /// Html
+        /// </summary>
+        public string HtmlContent { get; set; }
     }
 }

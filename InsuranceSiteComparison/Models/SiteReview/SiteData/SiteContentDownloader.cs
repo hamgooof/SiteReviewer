@@ -26,13 +26,46 @@ namespace InsuranceSiteComparison.Models.SiteReview.SiteData
             var doc = web.Load(resourceUrl);
 
             timer.Stop();
-
+            SetupDocRefs(doc, resourceUrl);
             return new SiteContent()
             {
                 ContentUrl = resourceUrl,
-                Content = doc.ParsedText,
+                Content = doc.DocumentNode.OuterHtml,
                 TimeToDownload = timer.Elapsed
             };
+        }
+
+        private static void SetupDocRefs(HtmlDocument doc, string urlPath)
+        {
+            var imgs = doc.DocumentNode.Descendants("img").Where(p => p.Attributes["src"].Value.StartsWith("/"));
+            foreach (var htmlNode in imgs)
+            {
+                var attrib = htmlNode.Attributes["src"];
+                var currentPath = attrib.Value;
+                attrib.Value = $"{urlPath}{currentPath}";
+            }
+
+            var css = doc.DocumentNode.Descendants("link").Where(p => p.Attributes.Contains("href") &&
+                                                                      p.Attributes["href"].Value.StartsWith("/"));
+            foreach (var htmlNode in css)
+            {
+                var attrib = htmlNode.Attributes["href"];
+                var currentPath = attrib.Value;
+                attrib.Value = $"{urlPath}{currentPath}";
+            }
+
+            doc.DocumentNode.Descendants()
+                .Where(n => n.Name == "script")
+                .ToList()
+                .ForEach(n => n.Remove());
+
+            //Lastly replace url('/ in html style to allow for background images!
+            var nodes = doc.DocumentNode.Descendants("style").ToList();
+            foreach (var htmlNode in nodes)
+            {
+                if (htmlNode.InnerHtml.Contains("url('/"))
+                    htmlNode.InnerHtml = htmlNode.InnerHtml.Replace("url('/", $"url('{urlPath}/");
+            }
         }
 
         private static Tuple<string, bool> GetStringFromWebResponse(WebResponse response)

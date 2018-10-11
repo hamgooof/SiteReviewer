@@ -28,5 +28,13 @@ var viewModel = /** @class */ (function () {
     };
     return viewModel;
 }());
+//https://stackoverflow.com/questions/15523457/how-to-data-bind-content-for-an-iframe-using-knockoutjs
+ko.bindingHandlers.iframeContent = {
+    update: function (element, valueAccessor) {
+        var value = ko.unwrap(valueAccessor());
+        element.contentWindow.document.close(); // Clear the content
+        element.contentWindow.document.write(value);
+    }
+};
 ko.applyBindings(new viewModel());
 //# sourceMappingURL=Index.js.map
