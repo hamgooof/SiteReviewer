@@ -59,9 +59,18 @@ namespace InsuranceSiteComparison.Models.SiteReview.SiteData
                 .ToList()
                 .ForEach(n => n.Remove());
 
+            //Get anchor tags and make them point to the true site
+            var anchorNodes = doc.DocumentNode.Descendants("a").Where(p => p.Attributes.Contains("href")).ToList();
+            foreach (var htmlNode in anchorNodes)
+            {
+                var hrefAttr = htmlNode.Attributes["href"];
+                if (hrefAttr.Value.StartsWith("/"))
+                    hrefAttr.Value = $"{urlPath}{hrefAttr.Value}";
+            }
+
             //Lastly replace url('/ in html style to allow for background images!
-            var nodes = doc.DocumentNode.Descendants("style").ToList();
-            foreach (var htmlNode in nodes)
+            var styleNodes = doc.DocumentNode.Descendants("style").ToList();
+            foreach (var htmlNode in styleNodes)
             {
                 if (htmlNode.InnerHtml.Contains("url('/"))
                     htmlNode.InnerHtml = htmlNode.InnerHtml.Replace("url('/", $"url('{urlPath}/");

@@ -20,11 +20,11 @@
                     <label>Site: </label><span data-bind="text: URL"></span>
                     <label>Keywords: </label>
                     <div data-bind="foreach: KeywordResult">
-                        <span data-bind="text: $data"></span>
+                        <span data-bind="html: $data" style="display: block"></span>
                     </div>                  
                     <label>Accessibility: </label>
                     <div data-bind="foreach: AccessibilityResult">
-                        <span data-bind="text: $data"></span>
+                        <span data-bind="text: $data" style="display: block"></span>
                     </div>
                 </div>
                 <div class="col-md-10">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using HtmlAgilityPack;
 using InsuranceSiteComparison.Models.SiteReview.SiteData;
@@ -22,7 +23,27 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers
             return new List<string>()
             {
                 FindMetaKeywords(),
+                FindInsuranceTypes()
             };
+        }
+
+        private string FindInsuranceTypes()
+        {
+            const string insuranceTypeRegexp = @"([A-Za-z0-9\']{1,})\s(insurance)";
+            var pattern = new Regex(insuranceTypeRegexp, RegexOptions.Compiled & RegexOptions.IgnoreCase);
+            var matches = pattern.Matches(_document.DocumentNode.OuterHtml);
+            var exclude = new[] { "on" };
+
+            var matching = matches.Cast<Match>().Select(p => p.Groups[1].Value).ToArray();
+            var grped = (from match in matching
+                         where !exclude.Contains(match.ToLower())
+                         group match by match.ToLower() into g
+                         orderby g.Count() descending
+                         select new { Insurance = g.Key, Count = g.Count() }).ToArray();
+
+            var textList = grped.Select(p => $"Type: {p.Insurance}, Count: {p.Count}<br/>");
+            return string.Join("", textList);
+
         }
 
         private string FindMetaKeywords()
