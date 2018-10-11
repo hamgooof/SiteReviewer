@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
+using InsuranceSiteComparison.Models.SiteReview.Analyzers;
 using InsuranceSiteComparison.Models.SiteReview.SiteData;
 
 namespace InsuranceSiteComparison.Models.SiteReview
@@ -27,24 +28,21 @@ namespace InsuranceSiteComparison.Models.SiteReview
 
         private SiteReview GetReview()
         {
-            var html = RequestAndTimeResource(_siteUrl);
+            //Get the main page HTML and the time to download
             var mainPage = SiteContentDownloader.GetContent(_siteUrl);
 
-            
-            return null;
+            //Analyze the HTML for keywords and accessibility features.
+            var keywords = KeywordAnalyzer.AnalyzeKeywords(mainPage.Content);
+            var accessibility= AccessibilityAnalyzer.AnalyzeAccessibility(mainPage.Content);
+
+            return new SiteReview()
+            {
+                URL = _siteUrl,
+                AccessibilityResult = accessibility,
+                KeywordResult = keywords,
+                TimeToLoad = mainPage.TimeToDownload,
+            };
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="resourceUri">Uri for the resource to download</param>
-        /// <returns>Tuple<Item 1: resource content, Item2: time to download></Item></returns>
-        private Tuple<string, TimeSpan> RequestAndTimeResource(string resourceUri)
-        {
-            return null;
-            //using (var req = WebRequest.CreateHttp(resourceUri))
-            //{
-            //    req.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-            //}
-        }
+       
     }
 }

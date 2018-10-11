@@ -49,9 +49,9 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers
         }
 
 
-        public static List<string> AnalyzeAccessibility(SiteContent content)
+        public static List<string> AnalyzeAccessibility(string htmlContent)
         {
-            return new AccessibilityAnalyzer(content.Content).AnalyzeHtml();
+            return new AccessibilityAnalyzer(htmlContent).AnalyzeHtml();
         }
 
     }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Web;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using HttpWebResponse = System.Net.HttpWebResponse;
 
@@ -21,19 +22,17 @@ namespace InsuranceSiteComparison.Models.SiteReview.SiteData
             var timer = new Stopwatch();
             timer.Start();
 
+            var web = new HtmlWeb();
+            var doc = web.Load(resourceUrl);
 
-            using (var res = req.GetResponse() as HttpWebResponse)
+            timer.Stop();
+
+            return new SiteContent()
             {
-                var data = GetStringFromWebResponse(res);
-                timer.Stop();
-                return new SiteContent()
-                {
-                    ContentUrl = resourceUrl,
-                    ContentType = res?.ContentType,
-                    Content = data.Item1,
-                    TimeToDownload = timer.Elapsed
-                };
-            }
+                ContentUrl = resourceUrl,
+                Content = doc.ParsedText,
+                TimeToDownload = timer.Elapsed
+            };
         }
 
         private static Tuple<string, bool> GetStringFromWebResponse(WebResponse response)

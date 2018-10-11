@@ -26,24 +26,5 @@ namespace InsuranceSiteComparison.Models.SiteReview
         /// Keyword frequency result
         /// </summary>
         public List<string> KeywordResult { get; set; }
-
-
-        public SiteReview(string url)
-        {
-            URL = url;
-        }
     }
-
-    /// <summary>
-    /// Key: Keyword,
-    /// Value: Count
-    /// </summary>
-    public class KeywordResult : Dictionary<string, int>
-    {
-    }
-
-    public class AccessibilityResult : Dictionary<AccessibilityTestType, double>
-    {
-    }
-    public enum AccessibilityTestType { ImageAlt }
 }
