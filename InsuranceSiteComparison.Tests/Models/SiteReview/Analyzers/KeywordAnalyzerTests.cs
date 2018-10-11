@@ -31,7 +31,7 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers.Tests
         {
             const string expected = "No keyword meta tag found";
 
-            var html = @"<meta name='someMeta'>some value </meta>";
+            var html = @"<meta name='someMeta' content='bla'>";
             var actual = KeywordAnalyzer.AnalyzeKeywords(html);
 
             Assert.IsTrue(actual.Contains(expected), $"Expected results to contain: '{expected}'");
