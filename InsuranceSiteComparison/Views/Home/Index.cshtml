@@ -8,13 +8,16 @@
 
 <div class="row">
     <div id="siteList" class="col-md-12">
-        <label>Site List</label>
-        <select data-bind="options: AllSites, selectedOptions: SelectedSites" size="3" multiple="true" class="form-control"></select>
-        <button data-bind="click: Compare, disable: IsLoading">Compare!</button>
+        <div style="display: inline-block">
+            <label>Site List</label>
+            <select data-bind="options: AllSites, selectedOptions: SelectedSites" size="3" multiple="true" class="form-control"></select>
+            <button data-bind="click: Compare, disable: IsLoading">Compare!</button>
+        </div>
+        <div style="display: inline-block"><img src="~/Content/imgs/Loading_icon.gif" data-bind="visible: IsLoading" style="width:250px" /></div>
     </div>
     <div class="col-md-12">
         <div class="row" data-bind="foreach: ReviewedSites">
-            <hr class="col-md-12"/>
+            <hr class="col-md-12" />
             <div class="col-md-12">
                 <div class="col-md-2">
                     <label>Site: </label>&nbsp;<span data-bind="text: URL"></span>
