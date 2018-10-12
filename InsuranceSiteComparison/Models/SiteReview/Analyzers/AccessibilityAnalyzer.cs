@@ -9,25 +9,20 @@ using InsuranceSiteComparison.Models.SiteReview.SiteData;
 
 namespace InsuranceSiteComparison.Models.SiteReview.Analyzers
 {
-    public class AccessibilityAnalyzer
+    public class AccessibilityAnalyzer : AbstractHtmlAnalyzer
     {
-        private readonly HtmlDocument _document;
 
-        private AccessibilityAnalyzer(string html)
+        public AccessibilityAnalyzer(string html) : base(html)
         {
-            _document = new HtmlDocument();
-            _document.LoadHtml(html);
         }
 
-        private List<string> AnalyzeHtml()
+        public override List<string> AnalyzeHtml()
         {
             return new List<string>
             {
                 AnalyzePercentageOfImageAltTags()
 
             };
-
-
         }
 
         /// <summary>
@@ -47,12 +42,5 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers
 
             return $"{percentage:P0} of image tags have 'alt' attributes ({imageTagsWithAlt} of {totalImageTags})";
         }
-
-
-        public static List<string> AnalyzeAccessibility(string htmlContent)
-        {
-            return new AccessibilityAnalyzer(htmlContent).AnalyzeHtml();
-        }
-
     }
 }

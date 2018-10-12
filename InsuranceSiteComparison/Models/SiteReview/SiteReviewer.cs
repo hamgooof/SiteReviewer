@@ -32,8 +32,8 @@ namespace InsuranceSiteComparison.Models.SiteReview
             var mainPageContent = SiteContentDownloader.GetContent(_siteUrl);
 
             //Analyze the HTML for keywords and accessibility features.
-            var keywords = KeywordAnalyzer.AnalyzeKeywords(mainPageContent.Content);
-            var accessibility = AccessibilityAnalyzer.AnalyzeAccessibility(mainPageContent.Content);
+            var keywords = new KeywordAnalyzer(mainPageContent.Content).AnalyzeHtml();
+            var accessibility = new AccessibilityAnalyzer(mainPageContent.Content).AnalyzeHtml();
 
             var cleanHtml = SiteCleaner.CleanSiteHtml(mainPageContent);
             return new SiteReview()

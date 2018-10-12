@@ -8,17 +8,14 @@ using InsuranceSiteComparison.Models.SiteReview.SiteData;
 
 namespace InsuranceSiteComparison.Models.SiteReview.Analyzers
 {
-    public class KeywordAnalyzer
+    public class KeywordAnalyzer : AbstractHtmlAnalyzer
     {
-        private readonly HtmlDocument _document;
 
-        private KeywordAnalyzer(string htmlContent)
+        public KeywordAnalyzer(string htmlContent) : base(htmlContent)
         {
-            _document = new HtmlDocument();
-            _document.LoadHtml(htmlContent);
         }
 
-        public List<string> AnalyzeKeywords()
+        public override List<string> AnalyzeHtml()
         {
             return new List<string>()
             {
@@ -63,9 +60,5 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers
             return $"Found meta keyword: '{keywordTag.Attributes["content"].Value}'";
         }
 
-        public static List<string> AnalyzeKeywords(string htmlContent)
-        {
-            return new KeywordAnalyzer(htmlContent).AnalyzeKeywords();
-        }
     }
 }
