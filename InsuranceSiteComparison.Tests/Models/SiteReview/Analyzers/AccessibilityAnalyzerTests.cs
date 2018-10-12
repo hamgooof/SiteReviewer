@@ -21,7 +21,7 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers.Tests
             };
 
             var testHtml = GetHtml();
-            var actual = AccessibilityAnalyzer.AnalyzeAccessibility(testHtml);
+            var actual = new AccessibilityAnalyzer(testHtml).AnalyzeHtml();
 
             foreach (var actualResult in actual)
             {

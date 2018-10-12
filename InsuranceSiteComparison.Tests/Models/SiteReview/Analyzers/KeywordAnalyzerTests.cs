@@ -22,7 +22,7 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers.Tests
             const string expected = "No meta tags found";
 
             var html = string.Empty;
-            var actual = KeywordAnalyzer.AnalyzeKeywords(html);
+            var actual = new KeywordAnalyzer(html).AnalyzeHtml();
 
             Assert.IsTrue(actual.Contains(expected), $"Expected results to contain: '{expected}'");
         }
@@ -32,8 +32,7 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers.Tests
             const string expected = "No keyword meta tag found";
 
             var html = @"<meta name='someMeta' content='bla'>";
-            var actual = KeywordAnalyzer.AnalyzeKeywords(html);
-
+            var actual = new KeywordAnalyzer(html).AnalyzeHtml();
             Assert.IsTrue(actual.Contains(expected), $"Expected results to contain: '{expected}'");
         }
 
@@ -43,7 +42,7 @@ namespace InsuranceSiteComparison.Models.SiteReview.Analyzers.Tests
             const string expected = "Found meta keyword: 'Pet Insurance, Car Insurance, Vehicle Insurance'";
 
             var html = @"<meta name='keywords' content='Pet Insurance, Car Insurance, Vehicle Insurance'>";
-            var actual = KeywordAnalyzer.AnalyzeKeywords(html);
+            var actual = new KeywordAnalyzer(html).AnalyzeHtml();
 
             Assert.IsTrue(actual.Contains(expected), $"Expected results to contain: '{expected}'. Actual: {string.Join(", ",actual)}");
         }
