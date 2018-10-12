@@ -89,6 +89,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\SiteReview\Analyzers\AccessibilityAnalyzerTests.cs" />
+    <Compile Include="Models\SiteReview\Analyzers\KeywordAnalyzerTests.cs" />
+    <Compile Include="Models\SiteReview\SiteData\SiteContentDownloaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
