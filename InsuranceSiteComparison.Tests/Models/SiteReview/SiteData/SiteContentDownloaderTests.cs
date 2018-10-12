@@ -13,12 +13,12 @@ namespace InsuranceSiteComparison.Models.SiteReview.SiteData.Tests
     [TestClass()]
     public class SiteContentDownloaderTests
     {
-        [TestMethod()]
-        public async Task GetContentTestAsync()
-        {
-            var result =  SiteContentDownloader.GetContent(@"https://www.morethan.com/");
-            Console.WriteLine(JsonConvert.SerializeObject(result));
-            AccessibilityAnalyzer.AnalyzeAccessibility(result);
-        }
+        //[TestMethod()]
+        //public async Task GetContentTestAsync()
+        //{
+        //    var result =  SiteContentDownloader.GetContent(@"https://www.morethan.com/");
+        //    Console.WriteLine(JsonConvert.SerializeObject(result));
+        //    AccessibilityAnalyzer.AnalyzeAccessibility(result.Content);
+        //}
     }
 }
