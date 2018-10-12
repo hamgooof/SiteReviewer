@@ -1,6 +1,6 @@
 ﻿declare var ko: KnockoutStatic;
 declare var $: JQueryStatic;
-//import ko = require("../../../knockout-3.4.2")
+
 class viewModel {
     AllSites = ko.observableArray<string>();
     SelectedSites = ko.observableArray<string>();
@@ -9,14 +9,16 @@ class viewModel {
     ReviewedSites = ko.observableArray<SiteReview>();
 
     constructor() {
+
         const sites = ["https://www.morethan.com",
             "https://www.gocompare.com"];
         this.AllSites(sites);
+
     }
     Compare() {
         this.IsLoading(true);
         $.post({
-            url: '/api/CompareSites',
+            url: '/api/ReviewSites',
             data: ko.toJSON(this.SelectedSites),
             contentType: 'application/json',
         }).done((data: SiteReview[]) => {
@@ -25,7 +27,7 @@ class viewModel {
             console.error(err);
         }).always(() => {
             this.IsLoading(false);
-        })
+        });
     }
 
     loadSite() {

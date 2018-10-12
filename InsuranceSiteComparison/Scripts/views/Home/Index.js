@@ -1,4 +1,3 @@
-//import ko = require("../../../knockout-3.4.2")
 var viewModel = /** @class */ (function () {
     function viewModel() {
         this.AllSites = ko.observableArray();
@@ -13,7 +12,7 @@ var viewModel = /** @class */ (function () {
         var _this = this;
         this.IsLoading(true);
         $.post({
-            url: '/api/CompareSites',
+            url: '/api/ReviewSites',
             data: ko.toJSON(this.SelectedSites),
             contentType: 'application/json',
         }).done(function (data) {

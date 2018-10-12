@@ -12,8 +12,8 @@ namespace InsuranceSiteComparison.Controllers
     public class HomeApiController : ApiController
     {
         [HttpPost]
-        [Route("CompareSites")]
-        public List<SiteReview> CompareSites(List<string> sitesToCompare)
+        [Route("ReviewSites")]
+        public List<SiteReview> ReviewSites(List<string> sitesToCompare)
         {
             var results = new List<SiteReview>();
 
