@@ -17,6 +17,7 @@ namespace InsuranceSiteComparison.Models.SiteReview.SiteData
         public TimeSpan TimeToDownload { get; set; }
         [JsonIgnore]
         public string Content { get; set; }
+        
 
     }
 }

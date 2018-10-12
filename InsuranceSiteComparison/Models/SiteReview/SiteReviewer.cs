@@ -29,19 +29,20 @@ namespace InsuranceSiteComparison.Models.SiteReview
         private SiteReview GetReview()
         {
             //Get the main page HTML and the time to download
-            var mainPage = SiteContentDownloader.GetContent(_siteUrl);
+            var mainPageContent = SiteContentDownloader.GetContent(_siteUrl);
 
             //Analyze the HTML for keywords and accessibility features.
-            var keywords = KeywordAnalyzer.AnalyzeKeywords(mainPage.Content);
-            var accessibility = AccessibilityAnalyzer.AnalyzeAccessibility(mainPage.Content);
+            var keywords = KeywordAnalyzer.AnalyzeKeywords(mainPageContent.Content);
+            var accessibility = AccessibilityAnalyzer.AnalyzeAccessibility(mainPageContent.Content);
 
+            var cleanHtml = SiteCleaner.CleanSiteHtml(mainPageContent);
             return new SiteReview()
             {
                 URL = _siteUrl,
                 AccessibilityResult = accessibility,
                 KeywordResult = keywords,
-                TimeToLoad = mainPage.TimeToDownload,
-                HtmlContent = mainPage.Content
+                TimeToLoad = mainPageContent.TimeToDownload,
+                HtmlContent = cleanHtml
             };
         }
 

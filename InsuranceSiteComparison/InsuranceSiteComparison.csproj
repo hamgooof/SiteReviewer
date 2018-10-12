@@ -185,6 +185,7 @@
     </Compile>
     <Compile Include="Models\SiteReview\Analyzers\AccessibilityAnalyzer.cs" />
     <Compile Include="Models\SiteReview\Analyzers\KeywordAnalyzer.cs" />
+    <Compile Include="Models\SiteReview\SiteData\SiteCleaner.cs" />
     <Compile Include="Models\SiteReview\SiteData\SiteContent.cs" />
     <Compile Include="Models\SiteReview\SiteData\SiteContentDownloader.cs" />
     <Compile Include="Models\SiteReview\SiteReview.cs" />
@@ -205,6 +206,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReadMe.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

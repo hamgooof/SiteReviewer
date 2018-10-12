@@ -17,11 +17,12 @@
             <hr class="col-md-12"/>
             <div class="col-md-12">
                 <div class="col-md-2">
-                    <label>Site: </label><span data-bind="text: URL"></span>
+                    <label>Site: </label>&nbsp;<span data-bind="text: URL"></span>
+                    <label>Time to load: </label>&nbsp;<span data-bind="text: TimeToLoad"></span>
                     <label>Keywords: </label>
                     <div data-bind="foreach: KeywordResult">
                         <span data-bind="html: $data" style="display: block"></span>
-                    </div>                  
+                    </div>
                     <label>Accessibility: </label>
                     <div data-bind="foreach: AccessibilityResult">
                         <span data-bind="text: $data" style="display: block"></span>
